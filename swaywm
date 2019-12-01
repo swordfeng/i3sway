@@ -1,0 +1,4 @@
+#!/bin/bash
+export I3SWAY_SESSION=sway
+geni3config
+exec sway -c /run/user/$UID/sway.conf

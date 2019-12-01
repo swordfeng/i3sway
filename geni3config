@@ -1,0 +1,16 @@
+#!/bin/bash
+
+m4 -E -D I3_SESSION ~/.config/i3/header.m4 ~/.config/i3/config.m4 > /run/user/$UID/i3.conf.new 2> >(tee /run/user/$UID/i3.gen.err >&2)
+if [[ $? -eq 0 ]]; then
+    mv -f /run/user/$UID/i3.conf{.new,}
+elif [ "$I3SWAY_SESSION" == "i3" ]; then
+    i3-nagbar -t error -m "$(</run/user/$UID/i3.gen.err)"
+    exit 1
+fi
+m4 -E -D SWAY_SESSION ~/.config/i3/header.m4 ~/.config/i3/config.m4 > /run/user/$UID/sway.conf.new 2> >(tee /run/user/$UID/sway.gen.err >&2)
+if [[ $? -eq 0 ]]; then
+    mv -f /run/user/$UID/sway.conf{.new,}
+elif [ "$I3SWAY_SESSION" == "sway" ]; then
+    swaynag -t error -m "$(</run/user/$UID/sway.gen.err)"
+    exit 1
+fi
