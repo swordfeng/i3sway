@@ -1,4 +1,11 @@
 #!/bin/bash
+
+export QT_QPA_PLATFORM=wayland-egl
+export SDL_VIDEODRIVER=wayland
+export MOZ_ENABLE_WAYLAND=1
+export ECORE_EVAS_ENGINE=wayland_egl
+export ELM_ENGINE=wayland_egl
+
 export I3SWAY_SESSION=sway
 geni3config
 exec sway -c /run/user/$UID/sway.conf

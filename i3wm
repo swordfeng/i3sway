@@ -1,4 +1,5 @@
 #!/bin/bash
+
 d=0
 while true ; do
     [ -e "/tmp/.X$d-lock" -o -S "/tmp/.X11-unix/X$d" ] || break
@@ -9,4 +10,4 @@ unset d
 
 export I3SWAY_SESSION=i3
 geni3config
-exec xinit /bin/bash -c 'xrdb -merge ~/.config/i3/Xresources; exec i3 -c /run/user/$UID/i3.conf' -- $DISPLAY vt$XDG_VTNR -nolisten tcp
+exec xinit /bin/bash -c 'source ~/.config/i3/xprofile; exec i3 -c /run/user/$UID/i3.conf' -- $DISPLAY vt$XDG_VTNR -nolisten tcp
